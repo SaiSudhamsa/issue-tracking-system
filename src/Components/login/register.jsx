@@ -44,7 +44,7 @@ export class Register extends React.Component {
           console.log(error)
         });
 
-      this.setState({ email: '', password: '' })
+      this.setState({ fullName: '', email: '', password: '' })
   }
 
   render() {
