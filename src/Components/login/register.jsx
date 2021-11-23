@@ -1,6 +1,7 @@
 import React from "react";
 import loginImg from "../../login.svg";
 import axios from 'axios';
+import "./style.scss";
 
 export class Register extends React.Component {
   constructor(props) {
