@@ -6,18 +6,17 @@ export class Login extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onChangeUserName = this.onChangeUserName.bind(this);
+    this.onChangeEmail = this.onChangeEmail.bind(this);
     this.onChangePasswd = this.onChangePasswd.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.state = {
-            username:"",
-            password:"",
-            errors:{}
+            email:"",
+            password:""
         }
   }
 
-  onChangeUserName(e){
-    this.setState({ username: e.target.value })
+  onChangeEmail(e){
+    this.setState({ email: e.target.value })
   }
   onChangePasswd(e){
     this.setState({ password: e.target.value })
@@ -28,7 +27,7 @@ export class Login extends React.Component {
     e.preventDefault()
 
     const userObject = {
-        name: this.state.username,
+        email: this.state.email,
         password: this.state.password
       };
 
@@ -37,11 +36,14 @@ export class Login extends React.Component {
     axios.post('http://localhost:8000/login', userObject)
      .then((res) => {
         console.log(res.data)
+        if(res.userexists){
+          console.log("Login Successful")
+        }
       }).catch((error) => {
           console.log(error)
         });
 
-      this.setState({ name: '', email: '' })
+      this.setState({ email: '', password: '' })
   }
 
   render() {
@@ -59,8 +61,8 @@ export class Login extends React.Component {
               </div>
               <div className="form">
                 <div className="form-group">
-                  <label htmlFor="username">Username</label>
-                  <input type="text" value={this.state.username} onChange={this.onChangeUserName} name="username" placeholder="username" />
+                  <label htmlFor="email">Email</label>
+                  <input type="text" value={this.state.email} onChange={this.onChangeEmail} name="email" placeholder="email" />
                 </div>
                 <div className="form-group">
                   <label htmlFor="password">Password</label>
