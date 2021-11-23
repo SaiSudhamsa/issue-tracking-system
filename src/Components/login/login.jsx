@@ -1,5 +1,5 @@
 import React from "react";
-import loginImg from "../../login.svg";
+import loginImg from "./login.svg";
 import axios from 'axios';
 import "./style.scss";
 
