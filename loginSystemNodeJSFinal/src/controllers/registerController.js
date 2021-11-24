@@ -16,10 +16,15 @@ let createNewUser = async (req, res) => {
         errors.forEach((item) => {
             errorsArr.push(item.msg);
         });
-        req.flash("errors", errorsArr);
-        return res.redirect("/register");
-    }
+        //req.flash("errors", errorsArr);
+        //return res.redirect("/register");
 
+        res.send(
+            {"success":false,
+            "errors": errorsArr}
+            );
+
+    }else {
     //create a new user
     let newUser = {
         fullname: req.body.fullName,
@@ -28,10 +33,14 @@ let createNewUser = async (req, res) => {
     };
     try {
         await registerService.createNewUser(newUser);
-        return res.redirect("/login");
-    } catch (err) {
-        req.flash("errors", err);
-        return res.redirect("/register");
+        res.send({"success": true});
+        //return res.redirect("/login");
+        } catch (err) {
+        //req.flash("errors", err);
+        //return res.redirect("/register");
+        res.send({"success":false,
+            "errors": err});
+        }
     }
 };
 module.exports = {
