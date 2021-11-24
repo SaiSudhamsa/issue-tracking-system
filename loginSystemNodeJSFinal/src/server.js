@@ -1,4 +1,3 @@
-require('dotenv').config();
 import express from "express";
 import configViewEngine from "./configs/viewEngine";
 import initWebRoutes from "./routes/web";
@@ -7,6 +6,8 @@ import cookieParser from 'cookie-parser';
 import session from "express-session";
 import connectFlash from "connect-flash";
 import passport from "passport";
+import cors from "cors";
+require('dotenv').config();
 
 let app = express();
 
@@ -27,6 +28,9 @@ app.use(session({
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+//cross-site transfer
+app.use(cors());
+
 //Config view engine
 configViewEngine(app);
 
@@ -40,5 +44,5 @@ app.use(passport.session());
 // init all web routes
 initWebRoutes(app);
 
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 8000;
 app.listen(port, () => console.log(`Building a login system with NodeJS is running on port ${port}!`));
