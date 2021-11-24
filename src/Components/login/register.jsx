@@ -38,7 +38,7 @@ export class Register extends React.Component {
       };
     
     console.log(userObject);
-    axios.post('http://localhost:8000/register', userObject)
+    axios.post('http://localhost:8000/register', userObject, {withCredentials: true})
      .then((res) => {
         console.log(res.data)
       }).catch((error) => {
