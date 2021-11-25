@@ -1,3 +1,4 @@
+import { compareSync } from "bcryptjs";
 import { validationResult } from "express-validator";
 import loginService from "../services/loginService";
 
@@ -29,6 +30,7 @@ let handleLogin = async (req, res) => {
 };
 
 let checkLoggedIn = (req, res, next) => {
+    console.log(req.isAuthenticated());
     if (!req.isAuthenticated()) {
         return res.redirect("/login");
     }

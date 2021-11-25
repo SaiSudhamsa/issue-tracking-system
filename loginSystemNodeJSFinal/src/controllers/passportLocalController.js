@@ -14,13 +14,17 @@ let initPassportLocal = () => {
             try {
                 await loginService.findUserByEmail(email).then(async (user) => {
                     if (!user) {
+                        console.log('This user email '+email+' doesn"t exist');
                         return done(null, false, req.flash("errors", `This user email "${email}" doesn't exist`));
                     }
                     if (user) {
                         let match = await loginService.comparePassword(password, user);
                         if (match === true) {
+                            console.log("Password Match");
+                            console.log(user);
                             return done(null, user, null)
                         } else {
+                            console.log("Password incorrect");
                             return done(null, false, req.flash("errors", match)
                             )
                         }

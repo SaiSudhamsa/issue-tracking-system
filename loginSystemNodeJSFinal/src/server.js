@@ -11,25 +11,28 @@ require('dotenv').config();
 
 let app = express();
 
-//use cookie parser
-app.use(cookieParser('secret'));
-
-//config session
-app.use(session({
-    secret: 'secret',
-    resave: true,
-    saveUninitialized: false,
-    cookie: {
-        maxAge: 1000 * 60 * 60 * 24 // 86400000 1 day
-    }
-}));
-
 // Enable body parser post data
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 //cross-site transfer
-app.use(cors());
+app.use(cors({
+    origin: "http://localhost:3000",
+    credentials: true
+}));
+
+//config session
+app.use(session({
+    secret: 'secret',
+    resave: true,
+    saveUninitialized: true,
+    cookie: {
+        maxAge: 1000 * 60 * 60 * 24 // 86400000 1 day
+    }
+}));
+
+//use cookie parser
+app.use(cookieParser('secret'));
 
 //Config view engine
 configViewEngine(app);
