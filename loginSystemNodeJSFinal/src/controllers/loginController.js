@@ -3,9 +3,7 @@ import { validationResult } from "express-validator";
 import loginService from "../services/loginService";
 
 let getPageLogin = (req, res) => {
-    return res.render("login.ejs", {
-        errors: req.flash("errors")
-    });
+    return res.send({"success": false,"errors": req.flash("errors")});
 };
 
 let handleLogin = async (req, res) => {
@@ -16,37 +14,41 @@ let handleLogin = async (req, res) => {
         errors.forEach((item) => {
             errorsArr.push(item.msg);
         });
-        req.flash("errors", errorsArr);
-        return res.redirect("/login");
+        //req.flash("errors", errorsArr);
+        //return res.redirect("/login");
+        return res.send({"success": false,"errors": errorsArr});
     }
 
     try {
         await loginService.handleLogin(req.body.email, req.body.password);
-        return res.redirect("/");
+        //return res.redirect("/");
+        return res.send({"success": true});
     } catch (err) {
-        req.flash("errors", err);
-        return res.redirect("/login");
+        //req.flash("errors", err);
+        //return res.redirect("/login");
+        return res.send({"success": false,"errors": errorsArr});
     }
 };
 
 let checkLoggedIn = (req, res, next) => {
-    console.log(req.isAuthenticated());
     if (!req.isAuthenticated()) {
-        return res.redirect("/login");
+        return res.send({"success": false});
     }
     next();
 };
 
 let checkLoggedOut = (req, res, next) => {
     if (req.isAuthenticated()) {
-        return res.redirect("/");
+        //return res.redirect("/");
+        return res.send({"success": true, "user": req.user});
     }
     next();
 };
 
 let postLogOut = (req, res) => {
     req.session.destroy(function(err) {
-        return res.redirect("/login");
+        //return res.redirect("/login");
+        return res.send({"gotoLogin": true});
     });
 };
 
