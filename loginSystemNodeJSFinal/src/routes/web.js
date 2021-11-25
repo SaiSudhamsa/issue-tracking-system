@@ -2,6 +2,7 @@ import express from "express";
 import homePageController from "../controllers/homePageController";
 import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
+import projectPageController from "../controllers/projectPageController";
 import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
@@ -24,6 +25,11 @@ let initWebRoutes = (app) => {
     router.get("/register", registerController.getPageRegister);
     router.post("/register", auth.validateRegister, registerController.createNewUser);
     router.post("/logout", loginController.postLogOut);
+
+    //user data
+    router.get("/projects", loginController.checkLoggedIn, projectPageController.getProjects);
+    router.post("/projects",loginController.checkLoggedIn, projectPageController.addProject);
+
     return app.use("/", router);
 };
 module.exports = initWebRoutes;
