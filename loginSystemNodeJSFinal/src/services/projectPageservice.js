@@ -1,4 +1,3 @@
-import { reject } from "delay";
 import DBConnection from "./../configs/DBConnection";
 
 let getProjects = async function(id){
