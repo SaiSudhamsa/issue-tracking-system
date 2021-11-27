@@ -3,6 +3,7 @@ import homePageController from "../controllers/homePageController";
 import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
 import projectPageController from "../controllers/projectPageController";
+import ticketPageController from "../controllers/ticketPageController";
 import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
@@ -26,9 +27,12 @@ let initWebRoutes = (app) => {
     router.post("/register", auth.validateRegister, registerController.createNewUser);
     router.post("/logout", loginController.postLogOut);
 
-    //user data
+    //projects
     router.get("/projects", loginController.checkLoggedIn, projectPageController.getProjects);
     router.post("/projects",loginController.checkLoggedIn, projectPageController.addProject);
+
+    //tickets
+    router.get("/tickets",loginController.checkLoggedIn, ticketPageController.getTickets);
 
     return app.use("/", router);
 };
