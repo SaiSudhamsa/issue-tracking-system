@@ -9,6 +9,16 @@ let getAllUsers = async function(req,res){
     }
 }
 
+let getUsersNotinProjects = async function(req,res){
+    try{
+        let data = await userService.getUsersNotinProjects();
+        res.send({success: true, "data": data});
+    }catch(err){
+        res.send({success: false, errors: err});
+    }
+}
+
 module.exports = {
-    getAllUsers: getAllUsers
+    getAllUsers: getAllUsers,
+    getUsersNotinProjects: getUsersNotinProjects
 }
