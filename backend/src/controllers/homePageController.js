@@ -3,14 +3,22 @@ import projectService from "./../services/projectPageService";
 
 let getOverviewPageData = async (req, res) => {
 
-    let userId = req.user.userId;
+    let userId = req.user.id;
     try{
         let data = {}
         data.openTicketsCount = await ticketService.getUserTicketStatusCount(userId,"open");
         data.closedTicketsCount = await ticketService.getUserTicketStatusCount(userId,"closed");
 
-        data.highPriorityTickets = await ticketService.getUserPriorityTickets(userId,"high");
-        
+        let highPriorityTickets = await ticketService.getUserPriorityTickets(userId,"high");
+
+        if(typeof(highPriorityTickets) !== "string"){
+            for(let i = 0;i<highPriorityTickets.length;i++){
+                highPriorityTickets[i].createdAt = highPriorityTickets[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
+            }data.highPriorityTickets = highPriorityTickets;
+        }else{
+            data.highPriorityTickets = highPriorityTickets;
+        }
+
         data.projectCount = await projectService.getUserProjectsCount(userId);
         
 

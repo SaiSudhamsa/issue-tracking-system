@@ -6,9 +6,11 @@ let getProjects = async function(req,res){
     let userId = req.user.id;
     try{
         let rows = await projectService.getProjects(userId);
-        for(let i = 0;i<rows.length;i++){
-            rows[i].createdAt = rows[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
-            rows[i].numberOfTickets = await ticketService.getUserProjectTicketCount(rows[i].projectId,userId);
+        if(typeof(rows) !== "string"){
+            for(let i = 0;i<rows.length;i++){
+                rows[i].createdAt = rows[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
+                rows[i].numberOfTickets = await ticketService.getUserProjectTicketCount(rows[i].projectId,userId);
+            }
         }
         res.send({"success": true,"projects": rows});
     }catch(err){
@@ -38,8 +40,16 @@ let getProjectDetails = async function(req,res){
     try{
         await userProjectService.checkUserProjectAccess(userId,projectId);
         let temp = await projectService.getProjectDetails(projectId);
+        let projectTickets = await ticketService.getUserProjectTickets(userId,projectId);
+
+        if(typeof(projectTickets) !== "string"){
+            for(let i = 0;i<projectTickets.length;i++){
+                projectTickets[i].createdAt = projectTickets[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
+            }
+        }
+
         let data = {
-            projectTickets : await ticketService.getUserProjectTickets(userId,projectId),
+            projectTickets : projectTickets,
             projectId : projectId,
             projectTitle: temp[0].projectTitle,
             projectDescription: temp[0].projectDescription,

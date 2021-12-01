@@ -1,19 +1,18 @@
 import DBConnection from "./../configs/DBConnection";
 
-let getUserTickets = async function(id){
-    return new Promise(async function(resolve,reject){
-        DBConnection.query("select * from tickets where createdBy = ? or assignedTo = ?",[id,id],
-            function(err,rows){
-                if(err){
-                    reject(err);
-                }else if(rows.length > 0){
-                    resolve(rows);
-                }else{
-                    reject("No tickets found!!!");
-                }
+let getUserTickets = async function(query,values){
+    return new Promise(async function(resolve, reject){
+        DBConnection.query(query,values,
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else if(rows.length > 0){
+                resolve(rows);
+            }else{
+                resolve("No Tickets Found!!!");
             }
-        );
-    });
+        })
+    })
 }
 
 let getUserProjectTicketCount = async function(projectId, userId){
@@ -73,10 +72,12 @@ let getUserProjectTickets = async function(userId,projectId){
     })
 }
 
+
+
 module.exports = {
     getUserTickets: getUserTickets,
     getUserProjectTicketCount: getUserProjectTicketCount,
     getUserTicketStatusCount: getUserTicketStatusCount,
     getUserPriorityTickets: getUserPriorityTickets,
-    getUserProjectTickets: getUserProjectTickets
+    getUserProjectTickets: getUserProjectTickets,
 }
