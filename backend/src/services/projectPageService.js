@@ -71,9 +71,23 @@ let getProjectDetails = async function(projectId){
     })
 }
 
+let getUsersOfProject = async function(projectId){
+    return new Promise(async function(resolve,reject){
+        DBConnection.query('select id,fullname,email from users where id in (select userId from usersProjects where projectId = ?)',projectId,
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else{
+                resolve(rows);
+            }
+        })
+    })
+}
+
 module.exports = {
     addProject: addProject,
     getProjects: getProjects,
     getUserProjectsCount: getUserProjectsCount,
-    getProjectDetails: getProjectDetails
+    getProjectDetails: getProjectDetails,
+    getUsersOfProject: getUsersOfProject
 }

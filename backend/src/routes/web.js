@@ -32,6 +32,7 @@ let initWebRoutes = (app) => {
     router.get("/projects", loginController.checkLoggedIn, projectPageController.getProjects);
     router.post("/projects",loginController.checkLoggedIn, projectPageController.addProject);
     router.get("/projects/:projectId",loginController.checkLoggedIn, projectPageController.getProjectDetails);
+    router.get("/projects/:projectId/members",loginController.checkLoggedIn, projectPageController.getUsersOfProject);
 
     //tickets
     router.get("/tickets",loginController.checkLoggedIn, ticketPageController.getUserTickets);

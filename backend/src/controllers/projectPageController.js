@@ -51,8 +51,19 @@ let getProjectDetails = async function(req,res){
     }
 }
 
+let getUsersOfProject = async function(req,res){
+    let projectId = req.params.projectId;
+    try{
+        let data = await projectService.getUsersOfProject(projectId);
+        res.send({success: true,"data": data});
+    }catch(err){
+        res.send({success: false,errors: err});
+    }
+}
+
 module.exports = {
     addProject: addProject,
     getProjects: getProjects,
-    getProjectDetails: getProjectDetails
+    getProjectDetails: getProjectDetails,
+    getUsersOfProject: getUsersOfProject
 }

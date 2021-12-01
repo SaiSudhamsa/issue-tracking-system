@@ -1,4 +1,3 @@
-import { compareSync } from "bcryptjs";
 import { validationResult } from "express-validator";
 import loginService from "../services/loginService";
 
