@@ -31,7 +31,7 @@ let addProject = async function(data){
 
 let getProjectIds = async function(id){
     return new Promise(async function(resolve, reject){
-        DBConnection.query('select projectId from usersProjects where userId= ?',id,
+        DBConnection.query('select projectId from usersProjects where userId = ?',id,
             function(err,rows){
                 if(err){
                     reject(err);
@@ -45,7 +45,21 @@ let getProjectIds = async function(id){
     })
 }
 
+let getUserProjectsCount = async function(userId){
+    return new Promise(async function(resolve, reject){
+        DBConnection.query('select count(projectId) as count from usersProjects where userId = ?',[userId],
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else{
+                resolve(rows[0].count);
+            }
+        })
+    })
+}
+
 module.exports = {
     addProject: addProject,
-    getProjects: getProjects
+    getProjects: getProjects,
+    getUserProjectsCount: getUserProjectsCount
 }

@@ -1,4 +1,5 @@
 import ticketService from "./../services/ticketPageService";
+import projectService from "./../services/projectPageService";
 
 let getOverviewPageData = async (req, res) => {
 
@@ -9,6 +10,9 @@ let getOverviewPageData = async (req, res) => {
         data.closedTicketsCount = await ticketService.getUserTicketStatusCount(userId,"closed");
 
         data.highPriorityTickets = await ticketService.getUserPriorityTickets(userId,"high");
+        
+        data.projectCount = await projectService.getUserProjectsCount(userId);
+        
 
         res.send({"success": true, "data": data});
     }catch(err){
