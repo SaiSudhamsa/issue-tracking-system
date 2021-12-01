@@ -39,6 +39,7 @@ let initWebRoutes = (app) => {
     //users
     router.get("/users",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getAllUsers);
     router.get("/users/newusers",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getUsersNotinProjects);
+    router.get("/users/:userId",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getProjectsNotAssignedToUser);
 
     return app.use("/", router);
 };

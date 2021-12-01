@@ -26,7 +26,21 @@ let getUsersNotinProjects = async function(){
     })
 }
 
+let getProjectsNotAssignedToUser = async function(userId){
+    return new Promise(async function(resolve,reject){
+        DBConnection.query("select * from projects p where p.projectId not in (select up.projectId from usersProjects up where up.userId = ?)",userId,
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else{
+                resolve(rows);
+            }
+        })
+    })
+}
+
 module.exports = {
     getAllUsers: getAllUsers,
-    getUsersNotinProjects: getUsersNotinProjects
+    getUsersNotinProjects: getUsersNotinProjects,
+    getProjectsNotAssignedToUser: getProjectsNotAssignedToUser
 }
