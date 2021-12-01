@@ -58,8 +58,22 @@ let getUserProjectsCount = async function(userId){
     })
 }
 
+let getProjectDetails = async function(projectId){
+    return new Promise(async function(resolve,reject){
+        DBConnection.query('select * from projects where projectId = ?',[projectId],
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else{
+                resolve(rows);
+            }
+        })
+    })
+}
+
 module.exports = {
     addProject: addProject,
     getProjects: getProjects,
-    getUserProjectsCount: getUserProjectsCount
+    getUserProjectsCount: getUserProjectsCount,
+    getProjectDetails: getProjectDetails
 }

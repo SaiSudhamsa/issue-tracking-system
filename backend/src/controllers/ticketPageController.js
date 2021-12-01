@@ -1,9 +1,9 @@
 import ticketService from "./../services/ticketPageService";
 
-let getTickets = async function(req,res){
+let getUserTickets = async function(req,res){
     let userId = req.user.id;
     try{
-        let rows = await ticketService.getTickets(userId);
+        let rows = await ticketService.getUserTickets(userId);
         for(let i = 0;i<rows.length;i++){
             rows[i].createdAt = rows[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
             rows[i].createdBy = req.user.fullname;
@@ -14,6 +14,7 @@ let getTickets = async function(req,res){
     }
 }
 
+
 module.exports = {
-    getTickets: getTickets
+    getUserTickets: getUserTickets,
 }
