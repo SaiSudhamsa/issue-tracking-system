@@ -1,4 +1,3 @@
-import { values } from "mysql2/lib/constants/charset_encodings";
 import ticketService from "./../services/ticketPageService";
 
 let getUserTickets = async function(req,res){

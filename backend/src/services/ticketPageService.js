@@ -79,5 +79,5 @@ module.exports = {
     getUserProjectTicketCount: getUserProjectTicketCount,
     getUserTicketStatusCount: getUserTicketStatusCount,
     getUserPriorityTickets: getUserPriorityTickets,
-    getUserProjectTickets: getUserProjectTickets,
+    getUserProjectTickets: getUserProjectTickets
 }
