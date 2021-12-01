@@ -43,8 +43,24 @@ let getUserTicketStatusCount = async function(userId,status){
     })
 }
 
+let getUserPriorityTickets = async function(userId,priority){
+    return new Promise(async function(resolve, reject){
+        DBConnection.query("select * from tickets where createdBy = ? or assignedTo = ? and priority = ?",[userId,userId,priority],
+        function(err,rows){
+            if(err){
+                reject(err);
+            }else if(rows.length > 0){
+                resolve(rows);
+            }else{
+                resolve("No tickets Found!!!");
+            }
+        })
+    })
+}
+
 module.exports = {
     getTickets: getTickets,
     getUserProjectTicketCount: getUserProjectTicketCount,
-    getUserTicketStatusCount: getUserTicketStatusCount
+    getUserTicketStatusCount: getUserTicketStatusCount,
+    getUserPriorityTickets: getUserPriorityTickets
 }
