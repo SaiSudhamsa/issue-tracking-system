@@ -4,6 +4,7 @@ import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
 import projectPageController from "../controllers/projectPageController";
 import ticketPageController from "../controllers/ticketPageController";
+import userPageController from "./../controllers/userPageController";
 import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
@@ -34,6 +35,9 @@ let initWebRoutes = (app) => {
 
     //tickets
     router.get("/tickets",loginController.checkLoggedIn, ticketPageController.getUserTickets);
+
+    //users
+    router.get("/users",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getAllUsers);
 
     return app.use("/", router);
 };

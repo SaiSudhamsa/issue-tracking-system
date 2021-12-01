@@ -51,10 +51,17 @@ let postLogOut = (req, res) => {
     });
 };
 
+let isAdmin = (req , res, next) => {
+    if(req.user.id !== 1){
+        res.send({success: false,errors: "Access forbidden"});
+    }next();
+}
+
 module.exports = {
     getPageLogin: getPageLogin,
     handleLogin: handleLogin,
     checkLoggedIn: checkLoggedIn,
     checkLoggedOut: checkLoggedOut,
-    postLogOut: postLogOut
+    postLogOut: postLogOut,
+    isAdmin: isAdmin
 };
