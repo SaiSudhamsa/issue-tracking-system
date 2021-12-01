@@ -14,13 +14,13 @@ initPassportLocal();
 let router = express.Router();
 
 let initWebRoutes = (app) => {
-    router.get("/", loginController.checkLoggedIn, homePageController.homePageData);
+    router.get("/", loginController.checkLoggedIn, homePageController.getOverviewPageData);
     router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
     router.post("/login", passport.authenticate("local", {
-        successRedirect: "/",
+        successRedirect: "/login",
         failureRedirect: "/login",
-        successFlash: true,
-        failureFlash: true
+        //successFlash: true,
+        //failureFlash: true
     }));
 
     router.get("/register", registerController.getPageRegister);

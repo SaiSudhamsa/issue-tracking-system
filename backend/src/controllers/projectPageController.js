@@ -1,4 +1,4 @@
-import projectService from "./../services/projectPageservice";
+import projectService from "./../services/projectPageService";
 import ticketService from "./../services/ticketPageService";
 
 let getProjects = async function(req,res){
@@ -7,7 +7,7 @@ let getProjects = async function(req,res){
         let rows = await projectService.getProjects(userId);
         for(let i = 0;i<rows.length;i++){
             rows[i].createdAt = rows[i].createdAt.toISOString().slice(0, 19).replace('T', ' ');
-            rows[i].numberOfTickets = await ticketService.getTicketCount(rows[i].projectId,userId);
+            rows[i].numberOfTickets = await ticketService.getUserProjectTicketCount(rows[i].projectId,userId);
         }
         res.send({"success": true,"projects": rows});
     }catch(err){
