@@ -1,16 +1,25 @@
-import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
-import 'bootstrap/dist/css/bootstrap.min.css'
+import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Navigate} from 'react-router-dom';
+import Topbar from "./Components/Topbar";
+import Sidebar from "./Components/Sidebar";
+import Overview from "./Components/Overview";
+import ProjectList from "./Components/ProjectList";
+import TicketList from "./Components/TicketList";
+import UserManagement from "./Components/UserManagement";
 
 function App() {
+    /*useEffect(() => {
+        if (localStorage.getItem('userID') === null) {
+            return <Navigate to='/login' />
+        }
+    })
+    */
+    if (localStorage.getItem('userID') === null) {
+            return <Navigate to='/login' />
+    }
+
     return (
-        <Router>
-            { /*<Route path="/auth" component={AuthPage} />*/}
-            <Route path="/" exact component={Overview} />
-            <div className="Outline">
-                <Topbar />
-                <Sidebar />
-            </div>
-        </Router>
+        <p>This is App component</p>
     );
 }
+export default App;

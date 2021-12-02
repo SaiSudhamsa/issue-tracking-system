@@ -2,6 +2,8 @@ import React from "react";
 import loginImg from "./login.svg";
 import axios from 'axios';
 import "./style.scss";
+import { Navigate } from 'react-router-dom';
+
 
 export class Register extends React.Component {
   constructor(props) {
@@ -41,6 +43,11 @@ export class Register extends React.Component {
     axios.post('http://localhost:8000/register', userObject, {withCredentials: true})
      .then((res) => {
         console.log(res.data)
+        if(res.data.usercreated){
+          console.log("User succesfully registered")
+          localStorage.setItem("userid",res.data.userid);
+          return <Navigate to='/' />
+        }
       }).catch((error) => {
           console.log(error)
         });
@@ -50,7 +57,7 @@ export class Register extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="base-container">
         <div className="Greeting">
           <h1>Welcome to Issue Tracker</h1> 
         </div>

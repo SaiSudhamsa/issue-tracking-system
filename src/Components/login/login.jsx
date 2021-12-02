@@ -2,6 +2,8 @@ import React from "react";
 import loginImg from "./login.svg";
 import axios from 'axios';
 import "./style.scss";
+import { Navigate } from 'react-router-dom';
+
 
 export class Login extends React.Component {
   constructor(props) {
@@ -37,8 +39,10 @@ export class Login extends React.Component {
     axios.post('http://localhost:8000/login', userObject,{withCredentials: true})
      .then((res) => {
         console.log(res.data)
-        if(res.userexists){
+        if(res.data.userexists){
           console.log("Login Successful")
+          localStorage.setItem("userid",res.data.userid);
+          return <Navigate to='/' />
         }
       }).catch((error) => {
           console.log(error)
