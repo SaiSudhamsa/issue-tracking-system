@@ -3,8 +3,8 @@ import { check } from "express-validator";
 let validateRegister = [
     check("email", "Invalid email").isEmail().trim(),
 
-    check("password", "Invalid password. Password must be at least 2 chars long")
-    .isLength({ min: 2 }),
+    check("password", "Invalid password. Password length need to be between 8 and 16 characters long")
+    .isLength({ min: 8, max: 16 }),
 
     /*check("passwordConfirmation", "Password confirmation does not match password")
     *.custom((value, { req }) => {

@@ -13,7 +13,7 @@ let createNewUser = (data) => {
             let userItem = {
                 fullname: data.fullname,
                 email: data.email,
-                password: bcrypt.hashSync(data.password, salt),
+                password: bcrypt.hashSync(data.password, salt)
             };
 
             //create a new account

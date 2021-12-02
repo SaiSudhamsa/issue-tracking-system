@@ -4,6 +4,7 @@ import registerController from "../controllers/registerController";
 import loginController from "../controllers/loginController";
 import projectPageController from "../controllers/projectPageController";
 import ticketPageController from "../controllers/ticketPageController";
+import userPageController from "./../controllers/userPageController";
 import auth from "../validation/authValidation";
 import passport from "passport";
 import initPassportLocal from "../controllers/passportLocalController";
@@ -14,13 +15,13 @@ initPassportLocal();
 let router = express.Router();
 
 let initWebRoutes = (app) => {
-    router.get("/", loginController.checkLoggedIn, homePageController.homePageData);
+    router.get("/", loginController.checkLoggedIn, homePageController.getOverviewPageData);
     router.get("/login",loginController.checkLoggedOut, loginController.getPageLogin);
     router.post("/login", passport.authenticate("local", {
-        successRedirect: "/",
+        successRedirect: "/login",
         failureRedirect: "/login",
-        successFlash: true,
-        failureFlash: true
+        //successFlash: true,
+        //failureFlash: true
     }));
 
     router.get("/register", registerController.getPageRegister);
@@ -30,9 +31,16 @@ let initWebRoutes = (app) => {
     //projects
     router.get("/projects", loginController.checkLoggedIn, projectPageController.getProjects);
     router.post("/projects",loginController.checkLoggedIn, projectPageController.addProject);
+    router.get("/projects/:projectId",loginController.checkLoggedIn, projectPageController.getProjectDetails);
+    router.get("/projects/:projectId/members",loginController.checkLoggedIn, projectPageController.getUsersOfProject);
 
     //tickets
-    router.get("/tickets",loginController.checkLoggedIn, ticketPageController.getTickets);
+    router.get("/tickets",loginController.checkLoggedIn, ticketPageController.getUserTickets);
+
+    //users
+    router.get("/users",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getAllUsers);
+    router.get("/users/newusers",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getUsersNotinProjects);
+    router.get("/users/:userId",loginController.checkLoggedIn,loginController.isAdmin, userPageController.getProjectsNotAssignedToUser);
 
     return app.use("/", router);
 };

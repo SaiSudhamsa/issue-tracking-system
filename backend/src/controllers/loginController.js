@@ -1,4 +1,3 @@
-import { compareSync } from "bcryptjs";
 import { validationResult } from "express-validator";
 import loginService from "../services/loginService";
 
@@ -40,9 +39,8 @@ let checkLoggedIn = (req, res, next) => {
 let checkLoggedOut = (req, res, next) => {
     if (req.isAuthenticated()) {
         //return res.redirect("/");
-        return res.send({"success": true, "user": req.user});
-    }
-    next();
+        return res.send({"success": true});
+    }return res.send({"success": false, "errors": req.flash("errors")});
 };
 
 let postLogOut = (req, res) => {
@@ -52,10 +50,17 @@ let postLogOut = (req, res) => {
     });
 };
 
+let isAdmin = (req , res, next) => {
+    if(req.user.id !== 1){
+        res.send({success: false,errors: "Access forbidden"});
+    }next();
+}
+
 module.exports = {
     getPageLogin: getPageLogin,
     handleLogin: handleLogin,
     checkLoggedIn: checkLoggedIn,
     checkLoggedOut: checkLoggedOut,
-    postLogOut: postLogOut
+    postLogOut: postLogOut,
+    isAdmin: isAdmin
 };
