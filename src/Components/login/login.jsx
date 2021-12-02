@@ -39,7 +39,7 @@ export class Login extends React.Component {
     axios.post('http://localhost:8000/login', userObject,{withCredentials: true})
      .then((res) => {
         console.log(res.data)
-        if(res.data.userexists){
+        if(res.data.success){
           console.log("Login Successful")
           localStorage.setItem("userid",res.data.userid);
           return <Navigate to='/' />

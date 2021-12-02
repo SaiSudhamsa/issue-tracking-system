@@ -39,7 +39,7 @@ let checkLoggedIn = (req, res, next) => {
 let checkLoggedOut = (req, res, next) => {
     if (req.isAuthenticated()) {
         //return res.redirect("/");
-        return res.send({"success": true});
+        return res.send({"success": true, userid: req.user.id});
     }return res.send({"success": false, "errors": req.flash("errors")});
 };
 
