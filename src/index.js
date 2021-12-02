@@ -11,10 +11,10 @@ function OpeningView() {
             <div>
                 <Routes>
                     <Route path="/login" element={<Auth />} />
-                    <Route path="/" element={<App />} />
-                    <Route path="/projects" exact component = {<App />} />
-                    <Route path="/tickets" exact component={<App />}/>
-                    <Route path="/users" exact compnent={<App />} />
+                    <Route path="/" exact element={<App />} />
+                    <Route path="/projects" exact element = {<App />} />
+                    <Route path="/tickets" exact element={<App />}/>
+                    <Route path="/users" exact element={<App />} />
                 </Routes>
             </div>
         </Router>
