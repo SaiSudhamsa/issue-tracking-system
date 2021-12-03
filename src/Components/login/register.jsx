@@ -43,16 +43,15 @@ export class Register extends React.Component {
     axios.post('http://localhost:8000/register', userObject, {withCredentials: true})
      .then((res) => {
         console.log(res.data)
-        if(res.data.usercreated){
+        if(res.data.success){
           console.log("User succesfully registered")
-          localStorage.setItem("userid",res.data.userid);
-          return <Navigate to='/' />
         }
       }).catch((error) => {
           console.log(error)
         });
 
       this.setState({ fullName: '', email: '', password: '' })
+      window.location.pathname = "/login";
   }
 
   render() {

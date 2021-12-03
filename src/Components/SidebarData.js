@@ -9,12 +9,12 @@ import AccountCircleIcon from '@mui/icons-material/AccountCircle';
     {
         title: "Overview",
         icon: <SummarizeIcon />,
-        link: "/home"
+        link: "/"
     },
     {    
         title: "My Tickets",
         icon: <ViewListIcon />,
-        link: "/ticket_list"
+        link: "/tickets"
     },
     {
         title: "Projects",

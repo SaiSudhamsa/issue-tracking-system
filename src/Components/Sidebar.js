@@ -2,10 +2,10 @@ import React from 'react'
 import "../index.css";
 import {SidebarData} from "./SidebarData";
 
-function Sidebar() {
+function Sidebar(props) {
     return (
         <div className="Sidebar">
-            <h3>{"  "} Welcome,</h3> <h2>{"  "} John Doe</h2> 
+            <h3>{"  "} Welcome,</h3> <h2>{"  "+ props.name} </h2> 
             <ul className="SidebarList">
                 {SidebarData.map((val, key)=>{
                 return(

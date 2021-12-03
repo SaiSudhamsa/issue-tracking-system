@@ -41,14 +41,12 @@ export class Login extends React.Component {
         console.log(res.data)
         if(res.data.success){
           console.log("Login Successful")
-          localStorage.setItem("userid",res.data.userid);
-          return <Navigate to='/' />
+          localStorage.setItem("userID", String(res.data.userid))
+          window.location.pathname = "/";
         }
       }).catch((error) => {
           console.log(error)
         });
-
-      this.setState({ email: '', password: '' })
   }
 
   render() {

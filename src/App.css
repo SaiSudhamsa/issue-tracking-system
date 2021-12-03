@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.Content {
+  height: 95%;
+  vertical-align: bottom;
+  align-self: right;
+  width: 40%;
+  position: absolute;
+}
