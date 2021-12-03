@@ -3,7 +3,9 @@ import projectService from "./../services/projectPageService";
 
 let getOverviewPageData = async (req, res) => {
 
+    console.log(2);
     let userId = req.user.id;
+    console.log(userId);
     try{
         let data = {}
         data.openTicketsCount = await ticketService.getUserTicketStatusCount(userId,"open");

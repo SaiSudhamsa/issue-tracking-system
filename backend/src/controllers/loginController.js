@@ -29,11 +29,17 @@ let handleLogin = async (req, res) => {
     }
 };
 
-let checkLoggedIn = (req, res, next) => {
+/*let checkLoggedIn = (req, res, next) => {
     if (!req.isAuthenticated()) {
         return res.send({"success": false});
     }
     next();
+};*/
+
+let checkLoggedIn = (req, res, next) => {
+    if (!req.isAuthenticated()) {
+        return res.send({"success": false, "errors": req.flash("errors")});
+    }next();
 };
 
 let checkLoggedOut = (req, res, next) => {

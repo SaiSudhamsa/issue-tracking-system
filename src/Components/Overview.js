@@ -54,7 +54,7 @@ class Overview extends React.Component{
     }
 
     componentDidMount() {
-        axios.get('http://localhost:8000/',)
+        axios.get('http://localhost:8000',{withCredentials: true})
             .then(response => {
                 console.log(response.data);
                 this.setState({ ticketlist: response.data.highPriorityTickets , 
